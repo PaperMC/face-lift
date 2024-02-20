@@ -70,7 +70,14 @@
         "name": "Spottedleaf",
         "avatar": "https://avatars.githubusercontent.com/u/6100722?v=4",
         "discord": "spottedleaf",
-        "github": "Spottedleaf"
+        "github": "Spottedleaf",
+        "tags": [
+          {
+            "name": "Folia",
+            "color": "#bf026b",
+            "description": "Maintains Folia"
+          }
+        ]
       }
     ]
   },
@@ -199,7 +206,14 @@
         "name": "Ollie",
         "avatar": "https://avatars.githubusercontent.com/u/69084614?v=4",
         "discord": "ollieee_",
-        "github": "olijeffers0n"
+        "github": "olijeffers0n",
+        "tags": [
+          {
+            "name": "Docs",
+            "color": "#029ffa",
+            "description": "Handles documentation for PaperMC projects"
+          }
+        ]
       }
     ]
   },
@@ -270,6 +284,7 @@
       },
       {
         "name": "stefvanschie",
+        "avatar": "https://avatars.githubusercontent.com/u/12550728?v=4",
         "discord": "stefvanschie",
         "github": "stefvanschie"
       },

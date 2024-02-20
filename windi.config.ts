@@ -58,5 +58,7 @@ export default defineConfig({
       },
     },
   },
-  shortcuts: {},
+  shortcuts: {
+    hero: "max-w-7xl flex flex-row mx-auto px-4 pt-20 pb-16 lg:pt-30 lg:pb-26 gap-16",
+  },
 });
