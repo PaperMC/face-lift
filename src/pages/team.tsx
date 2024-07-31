@@ -22,7 +22,7 @@ const Team: NextPage = () => {
         keywords={["papermc", "paper", "minecraft", "team"]}
         canonical="/team"
       />
-      <header className="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-48 pb-46) gap-16">
+      <header className="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-28 pb-16) gap-16">
         <div className="flex-1">
           <h1 className="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">
             Meet our team

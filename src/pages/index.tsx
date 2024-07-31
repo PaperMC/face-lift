@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import PaperIcon from "@/assets/brand/paper.svg";
 import VelocityIcon from "@/assets/brand/velocity.svg";
+import FoliaIcon from "@/assets/brand/folia.svg";
 import HomeImage1 from "@/assets/images/home-1.png";
 import HomeImage2 from "@/assets/images/home-2.png";
 import HomeImage3 from "@/assets/images/home-3.png";
@@ -26,7 +27,7 @@ const Home: NextPage<ProjectProps> = ({ project }) => {
         keywords={["papermc", "paper", "velocity", "minecraft", "performance"]}
         canonical="/"
       />
-      <header className="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-48 pb-46)">
+      <header className="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-44 pb-38)">
         <div className="flex-1">
           <h1 className="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">
             Modern software. <br />
@@ -73,12 +74,18 @@ const Home: NextPage<ProjectProps> = ({ project }) => {
               icon={VelocityIcon}
               description="Velocity is a high-performance, scalable Minecraft proxy server that allows players to connect to multiple Minecraft servers under the proxy."
             />
+            <SoftwarePreview
+              id="folia"
+              name="Folia"
+              icon={FoliaIcon}
+              description="Folia is a new fork of Paper that adds regionized multithreading to the server allowing for better performance and scalability."
+            />
           </div>
         </div>
       </section>
       <section
         id="facts"
-        className="flex flex-col max-w-7xl mx-auto px-4 py-8 gap-8 md:(gap-12 py-16)"
+        className="flex flex-col max-w-7xl mx-auto px-4 py-8 gap-8 md:(gap-12 py-14)"
       >
         <div className="flex flex-col gap-6 md:(flex-row-reverse gap-8) xl:gap-24 items-center">
           <div className="w-full flex-1 rounded-xl bg-gray-900 aspect-video relative overflow-clip">
