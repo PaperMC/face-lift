@@ -1,36 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# IntelliJ IDEA
+/.idea/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# macOS
 .DS_Store
-*.pem
 
-# debug
+# Node.js
+/node_modules/
+
+# build output
+dist/
+
+# generated types
+.astro/
+
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# local env files
-.env*.local
+# environment variables
+.env
+.env.production
 
-# typescript
-*.tsbuildinfo
-
-# intellij
-/.idea
-*.iml
+# auto downloaded fonts
+public/assets/fonts/

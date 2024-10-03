@@ -1,0 +1,30 @@
+---
+export interface Props {
+  icon: string;
+  label: string;
+  href?: string;
+  external?: boolean;
+  onClick?: () => void;
+}
+
+const { icon, label, href, onClick } = Astro.props;
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      rel="noreferrer"
+      target="_blank"
+      class="inline-block h-min w-min rounded-full p-2 transition-colors hover:bg-gray-800/20 dark:hover:bg-gray-400/20 leading-0"
+      onClick={onClick}
+      aria-label={label}
+    >
+      <img src={icon} class="h-6 w-6 fill-gray-700 dark:fill-gray-300" alt="" />
+    </a>
+  ) : (
+    <button class="h-min w-min rounded-full p-2 transition-colors hover:bg-gray-800/20" onClick={onClick} aria-label={label}>
+      <img src={icon} class="h-6 w-6 gray-700" alt="" />
+    </button>
+  )
+}

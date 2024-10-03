@@ -1,0 +1,11 @@
+---
+import { clsx } from "clsx";
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<div class={clsx("rounded-md bg-gray-400/40 animate-pulse h-6 w-auto", className)}></div>

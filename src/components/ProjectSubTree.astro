@@ -1,0 +1,41 @@
+---
+import { fetchProject } from "@/utils/api";
+import { Icon } from "astro-icon/components";
+import { clsx } from "clsx";
+
+interface Props {
+  id: string;
+  name: string;
+  eol?: boolean;
+
+  selectedProject: string;
+  selectedVersion: string;
+
+  onSelect(project: string, version: string): void;
+}
+
+const { id, name, eol, selectedProject, selectedVersion, onSelect } = Astro.props;
+
+const project = await fetchProject(id);
+---
+
+<div class="pl-3 py-1 rounded-md font-bold flex gap-2 items-center">
+  {project?.project_name ?? name}{" "}
+  {eol && <Icon name="icons/fontawesome/box-archive" class="fill-current h-full w-full" />}
+</div>
+{
+  project?.versions
+    ?.slice()
+    ?.reverse()
+    ?.map((version) => (
+      <button
+        class={clsx(
+          "pl-6 py-1 rounded-md transition-colors text-gray-800 dark:text-gray-200 block w-full text-left",
+          eol ? "hover:bg-red-100 hover:dark:bg-red-900" : "hover:bg-blue-100 hover:dark:bg-gray-900",
+          selectedProject === id && selectedVersion === version && (eol ? "bg-red-100 dark:bg-red-900" : "bg-blue-100 dark:bg-blue-900")
+        )}
+      >
+        {version}
+      </button>
+    ))
+}

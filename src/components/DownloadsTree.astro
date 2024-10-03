@@ -1,0 +1,18 @@
+---
+import ProjectSubTree from "./ProjectSubTree.astro";
+
+interface Props {
+  selectedProject: string;
+  selectedVersion: string;
+
+  onSelect(project: string, version: string): void;
+}
+
+const { selectedProject, selectedVersion, onSelect } = Astro.props;
+---
+
+<nav class="w-50 p-2 border-r border-gray-300 overflow-auto">
+  <ProjectSubTree id="paper" name="Paper" selectedProject={selectedProject} selectedVersion={selectedVersion} onSelect={onSelect} />
+  <ProjectSubTree id="velocity" name="Velocity" selectedProject={selectedProject} selectedVersion={selectedVersion} onSelect={onSelect} />
+  <ProjectSubTree id="waterfall" name="Waterfall" selectedProject={selectedProject} selectedVersion={selectedVersion} onSelect={onSelect} />
+</nav>

@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import DownloadsTree from "@/components/DownloadsTree.astro";
+
+import { fetchProject, fetchVersionBuilds } from "@/utils/api";
+
+const INITIAL_PROJECT = "paper";
+
+const project = await fetchProject(INITIAL_PROJECT);
+const versions = project.versions;
+
+const builds = await fetchVersionBuilds(project.project_id, versions[versions.length - 1]);
+---
+
+<Layout title="Build explorer" description="Build explorer for PaperMC projects. Proceed with caution!" keywords={[]} canonical="/downloads/all">
+  <div class="flex flex-col h-screen">
+    <div class="h-16"></div>
+    <div class="flex-1 flex flex-row min-h-0">
+      <DownloadsTree selectedProject={project.project_id} selectedVersion={versions[versions.length - 1]} onSelect={(project, version) => {}} />
+      <div class="flex-1 overflow-auto">
+        <!-- {legacy && (
+          <>
+            <div className="text-center px-4 py-2 font-bold bg-red-400 dark:bg-red-500 shadow-md">
+              Legacy builds are not supported. Proceed at your own risk!
+            </div>
+          </>
+        )}
+        {experimental && (
+          <>
+            <div className="text-center px-4 py-2 font-bold bg-orange-400 dark:bg-orange-500 shadow-md">
+              Experimental builds are not ready for production servers.
+              Proceed at your own risk!
+            </div>
+          </>
+        )}
+        {eol && (
+          <div className="text-center px-4 py-2 font-bold bg-yellow-400 dark:bg-yellow-500 shadow-md">
+            EOL builds are not supported. Proceed at your own risk!
+          </div>
+        )} -->
+        <!-- <SoftwareBuildsTable
+          project={selectedProject}
+          version={selectedVersion}
+          builds={builds?.builds ?? []}
+          eol={eol}
+        /> -->
+      </div>
+    </div>
+  </div>
+</Layout>

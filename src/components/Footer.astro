@@ -1,0 +1,100 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<footer class="bg-background-dark-80 py-12 mt-8 transition hover:text-gray-200 footer">
+  <div class="max-w-7xl m-auto px-4">
+    <div class="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-sm text-white">
+      <div>
+        <span class="font-semibold">Getting Started</span>
+        <ul class="mt-4 leading-5 text-gray-400 space-y-2">
+          <li>
+            <a href="/downloads">Downloads</a>
+          </li>
+          <li>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+            <a href="https://docs.papermc.io" target="_blank"> Documentation </a>
+          </li>
+          <li>
+            <a href="/javadocs">Javadocs</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <span class="font-semibold">Community</span>
+        <ul class="mt-4 leading-5 text-gray-400 space-y-2">
+          <li>
+            <a href="/community">Our Community</a>
+          </li>
+          <li>
+            <a href="https://github.com/PaperMC" target="_blank" rel="noreferrer"> GitHub </a>
+          </li>
+          <li>
+            <a href="https://discord.gg/papermc" target="_blank" rel="noreferrer"> Discord </a>
+          </li>
+          <li>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+            <a href="https://forums.papermc.io/" target="_blank"> Forums </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/PaperPowered" target="_blank" rel="noreferrer"> Twitter </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <span class="font-semibold">PaperMC</span>
+        <ul class="mt-4 leading-5 text-gray-400 space-y-2">
+          <li>
+            <a href="/team">Our Team</a>
+          </li>
+          <li>
+            <a href="/contribute">Contribute</a>
+          </li>
+          <li>
+            <a href="/sponsors">Sponsors</a>
+          </li>
+          <li>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+            <a href="https://hangar.papermc.io" target="_blank"> Hangar </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <span class="font-semibold">Terms</span>
+        <ul class="mt-4 leading-5 text-gray-400 space-y-2">
+          <li>
+            <a href="https://forums.papermc.io/help/terms/">Terms</a>
+          </li>
+          <li>
+            <a href="https://forums.papermc.io/help/privacy-policy/"> Privacy Policy </a>
+          </li>
+          <li>
+            <a href="https://forums.papermc.io/help/legal-notice/"> Legal Notice </a>
+          </li>
+          <li>
+            <a href="https://hangar.papermc.io/terms">Hangar Terms</a>
+          </li>
+          <li>
+            <a href="https://hangar.papermc.io/privacy"> Hangar Privacy Policy </a>
+          </li>
+          <li>
+            <a href="/community/guidelines">Community Guidelines</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-row items-center gap-2 border-t border-gray-600/50 mt-8 pt-10">
+      <Icon name="brand/logo-marker-dark" width={undefined} class="cursor-pointer h-12" />
+      <div class="flex-1"></div>
+      <span class="text-gray-300 text-sm">
+        © {new Date().getFullYear()} The PaperMC Team
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer a {
+    @apply transition hover:text-gray-200;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import Footer from "@/components/Footer.astro";
+import NavBar from "@/components/nav/NavBar.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonical: string;
+}
+
+const { title, description, keywords, canonical } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="bg-background-light-10 dark:(bg-background-dark-90 text-white) smooth-scroll -webkit-tap-highlight-color: transparent">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords.join(", ")} />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo/256x.png" />
+    <meta property="og:url" content={`https://papermc.io` + canonical} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="PaperMC" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/assets/logo/256x.png" />
+    <link rel="canonical" href={`https://papermc.io` + canonical} />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{`${title} | PaperMC`}</title>
+  </head>
+  <body class="flex flex-col h-screen font-sans">
+    <main class="flex-1">
+      <NavBar />
+      <slot />
+      <Footer />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+---
+import { type LocalImageProps, type RemoteImageProps, getImage, inferRemoteSize } from "astro:assets";
+import { AstroError, AstroErrorData } from "node_modules/astro/dist/core/errors";
+import type { HTMLAttributes } from "astro/types";
+
+import fallbackImage from "@/assets/brand/paper.svg";
+
+type Props = LocalImageProps | RemoteImageProps;
+
+const props = Astro.props;
+
+if (props.alt === undefined || props.alt === null) {
+  throw new AstroError(AstroErrorData.ImageMissingAlt);
+}
+
+if (typeof props.width === "string") {
+  props.width = parseInt(props.width);
+}
+
+if (typeof props.height === "string") {
+  props.height = parseInt(props.height);
+}
+
+const additionalAttributes: HTMLAttributes<"img"> = {};
+try {
+  await inferRemoteSize(props.src.toString());
+} catch (e) {
+  additionalAttributes.class = "invalid";
+  props.src = fallbackImage;
+}
+
+const image = await getImage(props);
+
+if (image.srcSet.values.length > 0) {
+  additionalAttributes.srcset = image.srcSet.attribute;
+}
+
+if (import.meta.env.DEV) {
+  additionalAttributes["data-image-component"] = "true";
+}
+---
+
+<img src={image.src} {...additionalAttributes} {...image.attributes} />

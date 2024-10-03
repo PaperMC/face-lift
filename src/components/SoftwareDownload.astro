@@ -1,0 +1,99 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { clsx } from "clsx";
+
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  experimentalWarning?: string;
+  keywords: string[];
+  canonical: string;
+  eol?: boolean;
+}
+
+const { id, title, description, experimentalWarning, keywords, canonical, eol } = Astro.props;
+
+/*
+TODO logic for software download page
+  const [isStable, setStable] = useState(true);
+  const version = isStable
+    ? project.latestStableVersion
+    : (project.latestExperimentalVersion ?? project.latestStableVersion);
+  const { data: builds } = useVersionBuilds(id, version);
+  const latestBuild = builds && builds.builds[builds.builds.length - 1];
+
+  const toggleStable = () => {
+    setStable(!isStable);
+  };
+  */
+---
+
+<Layout title={title} description={description} keywords={keywords} canonical={canonical}>
+  <header class="max-w-7xl flex flex-row flex-wrap mx-auto px-4 pt-32 pb-16 lg:(pt-48 pb-26) gap-16">
+    {
+      eol && (
+        <div class="text-center px-4 py-8 -mt-16 font-bold bg-red-400 dark:bg-red-500 shadow-md rounded-lg w-full">
+          {project.name} has reached end of life! It is no longer maintained or supported.
+        </div>
+      )
+    }
+    <div class="flex-1">
+      <div class="flex flex-row mb-6 gap-4 items-center">
+        <div class="w-12 h-12 rounded-lg bg-gray-800 p-3">
+          <!-- todo icon {Icon && <Icon />} -->
+        </div>
+        <h1 class="font-medium text-xl">Downloads</h1>
+      </div>
+      <h2 class="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">
+        Get {project.name}&nbsp;
+        <span class={isStable && !eol ? "text-blue-600" : "text-red-500"}>
+          {version}
+        </span>
+      </h2>
+      <p class="text-xl mt-4">
+        {isStable ? description : (experimentalWarning ?? description)}
+      </p>
+      <div class="flex flex-col gap-4 mt-8">
+        <SoftwareDownloadButton
+          projectId={id}
+          project={project}
+          build={latestBuild}
+          version={version}
+          stable={!latestBuild || latestBuild?.channel === "default"}
+          eol={eol}
+        />
+        {
+          project.latestExperimentalVersion && (
+            <button
+              class={clsx(
+                "rounded-lg flex flex-row w-full md:w-100 border text-white transition-border pl-5 py-3",
+                isStable
+                  ? "dark:border-red-500 dark:text-red-400 border-red-900 text-red-700"
+                  : "dark:border-blue-600 dark:text-blue-400 border-blue-900 text-blue-700"
+              )}
+              onClick={toggleStable}
+            >
+              {isStable ? "Toggle experimental builds for " : "Back to stable builds for "}
+              {isStable ? project.latestExperimentalVersion : project.latestStableVersion}
+            </button>
+          )
+        }
+      </div>
+    </div>
+    <div class="flex-1 lg:flex hidden justify-end"></div>
+  </header>
+  <section id="builds" class="max-w-7xl mx-auto py-8">
+    <h2 class="text-center text-xl font-medium">Older builds</h2>
+    <p class="text-center text-gray-800 dark:text-gray-200 text-lg mt-2 mb-8 px-4">
+      Looking for older builds - or changelogs? We got you!&nbsp;
+      <br />
+      <span class="text-gray-700 dark:text-gray-400">
+        Even older builds are available in our&nbsp;
+        <a href="/downloads/all" class="text-gray-700 dark:text-gray-400 underline"> build explorer </a>
+        .
+      </span>
+    </p>
+    <SoftwareBuilds project={id} version={version} builds={builds?.builds} eol={eol} />
+  </section>
+</Layout>

@@ -1,0 +1,88 @@
+---
+import RemoteImageWrapper from "@/components/RemoteImageWrapper.astro";
+import { Icon } from "astro-icon/components";
+
+import teams from "@/assets/data/team.json";
+import Button from "@/components/Button.astro";
+import Layout from "@/layouts/Layout.astro";
+import { fetchAllContributors } from "@/utils/github";
+import UserImage from "@/components/UserImage.astro";
+
+const HIDDEN_USERS = [1007849, 23557539, 49699333]; // md_5, EcoCityCraftCI, dependabot
+
+const contributors = await fetchAllContributors();
+---
+
+<Layout
+  title="Team"
+  description="Meet the team behind PaperMC, a Minecraft software organization focusing on improving the game’s ecosystem with faster and more secure software."
+  keywords={["papermc", "paper", "minecraft", "team"]}
+  canonical="/team"
+>
+  <header class="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-48 pb-46) gap-16">
+    <div class="flex-1">
+      <h1 class="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">Meet our team</h1>
+      <p class="text-xl mt-4">
+        Meet the members behind PaperMC, a Minecraft software organization focusing on improving the game’s ecosystem with faster and more secure software.
+      </p>
+      <div class="flex flex-row gap-4 mt-8">
+        <Button variant="filled" href="/sponsors"> Sponsor </Button>
+        <Button variant="outlined" href="https://github.com/PaperMC" external> GitHub </Button>
+      </div>
+    </div>
+    <div class="flex-1 lg:flex hidden justify-end"></div>
+  </header>
+  {
+    teams.map((team) => (
+      <section id={team.id} class="px-4 py-8 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-medium mb-2">{team.name}</h2>
+        <p>{team.description}</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+          {team.members.map((member) => (
+            <article class="border border-gray-300 dark:border-gray-700 rounded-md hover:shadow-md transition-shadow p-4">
+              <div class="flex flex-row gap-6">
+                <div class="w-20 h-20 relative bg-gray-600 rounded-md overflow-clip">
+                  {member.avatar && <RemoteImageWrapper alt={`${member.name}'s avatar`} src={member.avatar} width={80} height={80} class="object-cover" />}
+                </div>
+                <div class="min-w-0 flex-1 break-all">
+                  <span class="font-semibold">{member.name}</span>
+                  {member.github && (
+                    <a
+                      href={`https://github.com/${member.github}`}
+                      class="flex flex-row items-center gap-2 mt-2 text-blue-800 dark:text-blue-300 text-sm font-medium"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      <Icon name="icons/fontawesome/github-brands" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" />
+                      {member.github}
+                    </a>
+                  )}
+                  {member.discord && (
+                    <div class="flex flex-row items-center gap-2 mt-1 text-blue-800 dark:text-blue-300 text-sm font-medium">
+                      <Icon name="icons/fontawesome/discord-brands" class="w-4 h-4 fill-gray-700 dark:fill-gray-300" />
+                      {member.discord}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+  <section id="contributors" class="px-4 py-8 max-w-7xl mx-auto">
+    <h2 class="text-2xl font-medium mb-2">Contributors</h2>
+    <p>
+      Contributors are those people who have helped the organization by making important contributions to our codebases. From adding a new redstone engine to
+      PRing a fix for a nasty bug, our contributors have helped us to provide the best software we possibly can.
+    </p>
+    <div class="grid grid-cols-8 md:grid-cols-16 lg:grid-cols-18 xl:grid-cols-20 mt-8 gap-2">
+      {
+        contributors
+          ?.filter((contributor) => !HIDDEN_USERS.includes(contributor.id))
+          .map((contributor) => <UserImage avatarUrl={contributor.avatar_url} name={contributor.login} link={`https://github.com/${contributor.login}`} />)
+      }
+    </div>
+  </section>
+</Layout>

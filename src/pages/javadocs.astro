@@ -1,0 +1,40 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SoftwarePreview from "@/components/SoftwarePreview.astro";
+
+import { fetchProject } from "@/utils/api";
+
+export const prerender = false;
+
+const [paperData, foliaData, velocityData, waterfallData] = await Promise.all([
+  fetchProject("paper"),
+  fetchProject("folia"),
+  fetchProject("velocity"),
+  fetchProject("waterfall"),
+]);
+
+const { version_groups: paper_groups } = paperData;
+const { version_groups: folia_groups } = foliaData;
+const { version_groups: velocity_groups } = velocityData;
+const { version_groups: waterfall_groups } = waterfallData;
+---
+
+<Layout
+  title="Javadocs"
+  description="Find javadocs for our software – including Paper, Folia, Velocity, and Waterfall."
+  keywords={["papermc", "paper", "folia", "javadocs", "velocity", "waterfall"]}
+  canonical="/javadocs"
+>
+  <header class="max-w-7xl flex flex-col items-center mx-auto px-4 pt-32 pb-16 lg:(pt-48 pb-26) gap-2">
+    <h1 class="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">Javadocs</h1>
+    <p class="text-xl text-center mb-6">
+      {"You can find the javadocs for our software below:"}
+    </p>
+    <div class="grid md:grid-cols-4 lg:mt-6 gap-2 px-2 xl:gap-4">
+      <SoftwarePreview id="paper" name="Paper" icon="brand/paper" javadocs={paper_groups[paper_groups.length - 1]} />
+      <SoftwarePreview id="folia" name="Folia" icon="brand/folia" javadocs={folia_groups[folia_groups.length - 1]} />
+      <SoftwarePreview id="velocity" name="Velocity" icon="brand/velocity" javadocs={velocity_groups[velocity_groups.length - 1]} />
+      <SoftwarePreview id="waterfall" name="Waterfall" icon="brand/waterfall" javadocs={waterfall_groups[waterfall_groups.length - 1]} />
+    </div>
+  </header>
+</Layout>

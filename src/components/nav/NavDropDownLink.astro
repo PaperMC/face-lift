@@ -1,0 +1,24 @@
+---
+import { clsx } from "clsx";
+
+interface Props {
+  href: string;
+  target?: string;
+  className?: string;
+  eol?: boolean;
+}
+
+const { href, target, className, eol } = Astro.props;
+---
+
+<li
+  class={clsx(
+    "text-gray-800 hover:text-blue-600 text-sm transition-colors dark:(text-gray-200 hover:text-blue-400)",
+    eol && "hover:(text-red-600 dark:text-red-400)",
+    className
+  )}
+>
+  <a href={href} class={clsx("px-4 py-2 w-full", eol ? "flex items-center gap-2" : "block")} role="button" target={target}>
+    <slot />
+  </a>
+</li>

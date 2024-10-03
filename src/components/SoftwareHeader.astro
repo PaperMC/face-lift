@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+import Button from "./Button.astro";
+
+interface Props {
+  id: string;
+  name: string;
+  versionGroup: string;
+  icon?: string;
+  description: string;
+  github?: string;
+  eol?: boolean;
+}
+
+const { id, name, versionGroup, icon, description, github, eol } = Astro.props;
+---
+
+<header class="max-w-7xl flex flex-row flex-wrap mx-auto px-4 pt-32 pb-26 lg:(pt-48 pb-46) gap-16">
+  {
+    eol && (
+      <div class="text-center px-4 py-8 -mt-16 font-bold bg-red-400 dark:bg-red-500 shadow-md rounded-lg w-full">
+        {name} has reached end of life! It is no longer maintained or supported.
+      </div>
+    )
+  }
+  <div class="flex-1">
+    <div class="flex flex-row mb-6 gap-4 items-center">
+      <div class="w-12 h-12 rounded-lg bg-gray-800 p-3">
+        {icon && <Icon name={icon} class="w-full h-full" />}
+      </div>
+      <h1 class="font-medium text-xl flex gap-4 items-center">
+        {name}
+        {eol && <Icon name="icons/fontawesome/box-archive" class="fill-current h-6" />}
+      </h1>
+    </div>
+    <h2 class="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">
+      <slot />
+    </h2>
+    <p class="text-xl mt-4">{description}</p>
+    <div class="flex flex-row gap-4 mt-8">
+      <Button variant="filled" href={github ?? `/downloads/${id}`} external={Boolean(github)} className={eol ? "!bg-red-500 !hover:bg-red-400" : ""}>
+        {github ? "GitHub" : "Downloads"}
+      </Button>
+      <Button variant="outlined" href={`https://docs.papermc.io/${id}`} external> Documentation </Button>
+      <Button variant="outlined" href={`https://jd.papermc.io/${id}/${versionGroup}`} className="hidden md:block" external> Javadoc </Button>
+    </div>
+  </div>
+  <div class="flex-1 lg:flex hidden justify-end"></div>
+</header>

@@ -1,0 +1,31 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  id: string;
+  name: string;
+  icon: any;
+  description?: string;
+  download?: boolean;
+  javadocs?: string;
+  eol?: boolean;
+}
+
+const { id, name, icon, description, download, javadocs, eol } = Astro.props;
+---
+
+<a href={download ? `/downloads/${id}` : javadocs ? `https://jd.papermc.io/${id}/${javadocs}` : `/software/${id}`}>
+  <article class="rounded-xl transition-all h-full p-4 md:p-8 hover:(shadow-lg bg-primary-300 dark:bg-gray-800)">
+    <div class="flex flex-row items-center gap-4">
+      <div class="rounded-lg w-12 h-12 bg-gray-800 p-3">
+        <Icon name={icon} class="w-full h-full" />
+      </div>
+      <h3 class="font-medium flex-1 flex gap-4 items-center">
+        {name}
+        {eol && <Icon name="icons/fontawesome/box-archive" class="fill-current h-6" />}
+      </h3>
+    </div>
+
+    {description && <p class="text-gray-800 dark:text-gray-200 mt-4">{description}</p>}
+  </article>
+</a>

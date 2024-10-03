@@ -1,0 +1,135 @@
+---
+import { Image } from "astro:assets";
+
+import Button from "@/components/Button.astro";
+import SoftwarePreview from "@/components/SoftwarePreview.astro";
+import Terminal from "@/components/Terminal.astro";
+import Layout from "@/layouts/Layout.astro";
+
+import HomeImage1 from "@/assets/images/home-1.png";
+import HomeImage2 from "@/assets/images/home-2.png";
+import HomeImage3 from "@/assets/images/home-3.png";
+---
+
+<Layout
+  title="Home"
+  description={"PaperMC is a Minecraft software organization focusing on improving the game’s ecosystem with faster and more secure software."}
+  keywords={["papermc", "paper", "velocity", "minecraft", "performance"]}
+  canonical="/"
+>
+  <header class="max-w-7xl flex flex-row mx-auto px-4 pt-32 pb-26 lg:(pt-48 pb-46)">
+    <div class="flex-1">
+      <h1 class="font-medium leading-normal lg:(text-5xl leading-normal) text-4xl">
+        Modern software. <br />
+        <span class="text-blue-500">Built to perform.</span>
+      </h1>
+      <p class="text-xl mt-4">
+        PaperMC improves Minecraft’s ecosystem with fast, secure software and an expanding plugin API, providing quick releases and helpful support as the most
+        widely used, performant, and stable software available.
+      </p>
+      <div class="flex flex-row gap-4 mt-8">
+        <Button variant="filled" href="/downloads"> Downloads </Button>
+        <Button variant="outlined" href="https://docs.papermc.io" external> Documentation </Button>
+      </div>
+    </div>
+    <div class="flex-1 lg:flex hidden justify-end">
+      <Terminal />
+    </div>
+  </header>
+  <section id="software" class="w-full pt-12 pb-8 bg-primary-200 dark:bg-background-dark-80">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-semibold text-xl md:text-2xl px-6 lg:px-4 mb-4">
+        Your server deserves the <span class="text-blue-500">best.</span>
+      </h2>
+      <div class="grid md:(grid-cols-3 -ml-4) gap-2 px-2 xl:gap-4">
+        <SoftwarePreview
+          id="paper"
+          name="Paper"
+          icon="brand/paper"
+          description="Paper is a Minecraft game server based on Spigot, designed to greatly improve performance and offer more advanced features and API."
+        />
+        <SoftwarePreview
+          id="velocity"
+          name="Velocity"
+          icon="brand/velocity"
+          description="Velocity is a high-performance, scalable Minecraft proxy server that allows players to connect to multiple Minecraft servers under the proxy."
+        />
+      </div>
+    </div>
+  </section>
+  <section id="facts" class="flex flex-col max-w-7xl mx-auto px-4 py-8 gap-8 md:(gap-12 py-16)">
+    <div class="flex flex-col gap-6 md:(flex-row-reverse gap-8) xl:gap-24 items-center">
+      <div class="w-full flex-1 rounded-xl bg-gray-900 aspect-video relative overflow-clip">
+        <Image
+          alt="Hangar Homepage"
+          src={HomeImage3}
+          sizes="(min-width: 80rem) 40rem, (min-width: 768px) 40vw, 100vw"
+          widths={[400, 800, 1200, 1600]}
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="flex-1">
+        <h2 class="font-semibold text-2xl md:text-4xl">A diverse plugin ecosystem</h2>
+        <p class="md:(mt-6 text-xl) text-gray-900 dark:text-gray-100 mt-3">
+          Crafted by the PaperMC team & contributors, Hangar is our own dedicated plugin repository, now in open beta! A place for developers to host their
+          creations, and server owners to enrich their player&apos;s gameplay. From Administration Tools, to Minigames, you&apos;ll find it all on Hangar.
+        </p>
+        <div class="flex flex-row gap-4 mt-8">
+          <Button variant="filled" href="https://hangar.papermc.io/" external> Check out Hangar </Button>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-6 md:(flex-row gap-8) xl:gap-24 items-center">
+      <div class="w-full flex-1 rounded-xl bg-gray-900 aspect-video relative overflow-clip">
+        <Image
+          alt=""
+          src={HomeImage1}
+          sizes="(min-width: 80rem) 40rem, (min-width: 768px) 40vw, 100vw"
+          widths={[400, 800, 1200, 1600]}
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="flex-1">
+        <h2 class="font-semibold text-2xl md:text-4xl break-all">
+          Powering
+          <span class="text-blue-500" id="pcount">0</span>
+          players
+        </h2>
+        <p class="md:(mt-6 text-xl) text-gray-900 dark:text-gray-100 mt-3">
+          PaperMC’s software powers hundreds of thousands of Minecraft servers on a daily basis, from small single-servers setups to massive Minecraft server
+          networks. Designed with utility and performance in mind, it can handle whatever you throw at it.
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-6 md:(flex-row-reverse gap-8) xl:gap-24 items-center">
+      <div class="w-full flex-1 rounded-xl bg-gray-900 aspect-video relative overflow-clip">
+        <Image
+          alt=""
+          src={HomeImage2}
+          sizes="(min-width: 80rem) 40rem, (min-width: 768px) 40vw, 100vw"
+          widths={[400, 800, 1200, 1600]}
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="flex-1">
+        <h2 class="font-semibold text-2xl md:text-4xl">The promise of stability</h2>
+        <p class="md:(mt-6 text-xl) text-gray-900 dark:text-gray-100 mt-3">
+          Our software is designed with security and stability in mind. We have consistently been among the first to fix vulnerabilities in the Minecraft space
+          for years, so you can rest assured that PaperMC software is a good choice.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const players = await fetch("https://bstats.org/api/v1/plugins/580/charts/players/data/?maxElements=1");
+  const playerCount = await players.json();
+
+  if (playerCount) {
+    const pcountElement = document.getElementById("pcount");
+    if (pcountElement) {
+      pcountElement.textContent = `${Math.round(playerCount[0][1] / 1000)}k+`;
+    }
+  }
+</script>
