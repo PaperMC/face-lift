@@ -119,9 +119,26 @@ const Footer = () => (
       <div className="flex flex-row items-center gap-2 border-t border-gray-600/50 mt-8 pt-10">
         <LogoMarkerDark className="h-12 cursor-pointer" alt="PaperMC" />
         <div className="flex-1" />
-        <span className="text-gray-300 text-sm">
-          © {new Date().getFullYear()} The PaperMC Team
-        </span>
+        <div className={"flex flex-col"}>
+          <span className="text-gray-300 text-sm">
+            © {new Date().getFullYear()} The PaperMC Team
+          </span>
+          <span className="text-gray-300 text-sm">
+            <Link
+              className={"text-blue-800 dark:text-blue-300 text-sm font-medium"}
+              href="https://github.com/PaperMC/website/"
+            >
+              PaperMC/website
+            </Link>
+            {" @ "}
+            <Link
+              className={"text-blue-800 dark:text-blue-300 text-sm font-medium"}
+              href={`https://github.com/PaperMC/website/commit/${process.env.CURRENT_COMMIT}`}
+            >
+              {process.env.CURRENT_COMMIT}
+            </Link>
+          </span>
+        </div>
       </div>
       <div className="flex flex-row items-center gap-2 mt-4 pt-4">
         <span className="text-gray-300 text-sm">
