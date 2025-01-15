@@ -129,7 +129,7 @@ const Home: NextPage<ProjectProps> = ({ project }) => {
               Powering&nbsp;
               {playerData ? (
                 <span className="text-blue-500">
-                  {Math.round(playerData[0][1] / 1000)}k+
+                  {Math.floor(playerData[0][1] / 1000)}k+
                 </span>
               ) : (
                 <Skeleton className="w-30 h-6 inline-block" />
