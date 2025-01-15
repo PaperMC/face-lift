@@ -1,0 +1,32 @@
+name: "Build Preview Deployment"
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build-preview:
+    runs-on: "ubuntu-latest"
+    name: "Build Preview Site and Upload Build Artifact"
+    steps:
+      - name: "checkout"
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+      - name: "setup pnpm"
+        uses: "pnpm/action-setup@v4"
+      - name: "setup node"
+        uses: "actions/setup-node@v4"
+        with:
+          cache: "pnpm"
+          node-version: 20
+      - name: "install dependencies"
+        run: "pnpm install"
+      - name: "build"
+        run: "pnpm run build"
+      # Uploads the build directory as a workflow artifact
+      - name: "upload build artifact"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "preview-build"
+          path: "build"
